@@ -3,13 +3,13 @@ import { Auth, getAuth } from 'firebase/auth';
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAvgoRC1rPqGJ0Hz6YjB4ggoQ1uFhkH0Gg",
-  authDomain: "beyond-chats-assignment.firebaseapp.com",
-  projectId: "beyond-chats-assignment",
-  storageBucket: "beyond-chats-assignment.firebasestorage.app",
-  messagingSenderId: "982052720692",
-  appId: "1:982052720692:web:50b1d739e4a1a7178aba61",
-  measurementId: "G-XNVS9S3CZQ"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 let auth: Auth
