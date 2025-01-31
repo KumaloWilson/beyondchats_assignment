@@ -18,13 +18,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
         setUser({
-          id: user.uid,
-          name: user.displayName || '',
-          email: user.email || '',
-          emailVerified: user.emailVerified,
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName || '',
+          email: firebaseUser.email || '',
+          emailVerified: firebaseUser.emailVerified,
         });
       } else {
         setUser(null);
@@ -49,17 +49,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await updateProfile(user, { displayName: name });
   };
 
-  const value = {
-    user,
-    loading,
-    signIn,
-    signUp,
-    signOut: () => signOut(auth),
-    googleSignIn,
+  const logout = async () => {
+    await signOut(auth);
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ user, loading, signIn, signUp, logout, googleSignIn }}>
       {!loading && children}
     </AuthContext.Provider>
   );
