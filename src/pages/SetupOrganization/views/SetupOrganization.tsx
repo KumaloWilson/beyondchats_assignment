@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import toast from 'react-hot-toast';
-import { Layout } from '../components/Layout';
-import { WebPage, WebsiteAnalysis, OrganizationData } from '../types';
-import { OrganizationForm } from './SetupOrganization/components/organiztion_form';
-import { WebsiteTrainingProgress } from './SetupOrganization/components/website_training_progress';
+import { Layout } from '../../../components/Layout';
+import { WebPage, WebsiteAnalysis, OrganizationData } from '../../../types';
+import { OrganizationForm } from '../components/organiztion_form';
+import { WebsiteTrainingProgress } from '../components/website_training_progress';
 
 export const SetupOrganization: React.FC = () => {
   const navigate = useNavigate();
