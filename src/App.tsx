@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { Register } from './pages/Register';
-import { SetupOrganization } from './pages/SetupOrganization';
 import { ChatbotIntegration } from './pages/ChatbotIntegration';
 import { Login } from './pages/Login';
 import ProtectedRoute from './lib/protected_routes';
+import { SetupOrganization } from './pages/SetupOrganization';
 
 function App() {
   return (
