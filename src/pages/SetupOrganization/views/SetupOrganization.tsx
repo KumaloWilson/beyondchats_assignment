@@ -1,9 +1,7 @@
 import React, { useState, } from 'react';
 import { motion, } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Layout } from '../components/Layout';
-import { Input } from '../components/Input';
-import { Button } from '../components/Button';
+
 import {
   Building2,
   Globe,
@@ -18,9 +16,12 @@ import {
   TrendingUp,
   Tag,
   BookOpen,
+  Layout,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { WebPage, WebsiteAnalysis, OrganizationData } from '../types';
+import { Button } from '../../../components/Button';
+import { Input } from '../../../components/Input';
 
 export const SetupOrganization: React.FC = () => {
   const navigate = useNavigate();
