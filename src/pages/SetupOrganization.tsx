@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import toast from 'react-hot-toast';
 import { Layout } from '../components/Layout';
 import { WebPage, WebsiteAnalysis, OrganizationData } from '../types';
