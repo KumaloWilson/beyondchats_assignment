@@ -129,7 +129,7 @@ export const OrganizationForm: React.FC<OrganizationFormProps> = ({
                     </div>
                 )}
 
-                <div className="flex flex-col md:flex-row justify-end pt-4 md:pt-6 space-y-2 md:space-y-0 md:space-x-4">
+                <div className="flex flex-col md:flex-row justify-center pt-4 md:pt-6 space-y-2 md:space-y-0 md:space-x-4">
                     <Button
                         type="submit"
                         variant="gradient"
