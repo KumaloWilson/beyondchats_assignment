@@ -25,7 +25,7 @@ export const ChatbotIntegration = () => {
     theme: 'light'
   });
 </script>`;
-    
+
     navigator.clipboard.writeText(code);
     toast.success('Code copied to clipboard!');
   };
@@ -54,7 +54,7 @@ export const ChatbotIntegration = () => {
               {integrationStep === 'success' ? 'Integration Successful!' : 'Chatbot Integration'}
             </h2>
             <p className="text-gray-600">
-              {integrationStep === 'success' 
+              {integrationStep === 'success'
                 ? 'Your chatbot is now ready to use'
                 : 'Choose how you want to integrate your chatbot'}
             </p>
@@ -139,7 +139,7 @@ export const ChatbotIntegration = () => {
               >
                 <div className="bg-gray-900 rounded-lg p-6 font-mono text-sm text-white">
                   <pre className="whitespace-pre-wrap">
-{`<script src="https://cdn.beyondchats.com/widget.js"></script>
+                    {`<script src="https://cdn.beyondchats.com/widget.js"></script>
 <script>
   window.BeyondChats.init({
     organizationId: 'YOUR_ORG_ID',
@@ -148,7 +148,7 @@ export const ChatbotIntegration = () => {
 </script>`}
                   </pre>
                 </div>
-                
+
                 <div className="flex justify-between">
                   <Button
                     variant="secondary"
@@ -191,7 +191,7 @@ export const ChatbotIntegration = () => {
                   >
                     Explore Admin Panel
                   </Button>
-                  
+
                   <Button
                     variant="secondary"
                     className="w-full"
