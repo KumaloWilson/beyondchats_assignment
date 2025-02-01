@@ -12,7 +12,7 @@ export const Register = () => {
   const [step,] = useState(1);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { signUp, googleSignIn } = useAuth();
+  const { signUp, googleSignIn, user } = useAuth();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -20,6 +20,12 @@ export const Register = () => {
     password: '',
     verificationCode: '',
   });
+
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true }); // Redirect if user is logged in
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -236,3 +242,7 @@ export const Register = () => {
 };
 
 export default Register;
+
+function useEffect(arg0: () => void, arg1: any[]) {
+  throw new Error('Function not implemented.');
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
@@ -11,7 +11,13 @@ import { SiGoogle } from 'react-icons/si';
 export const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { signIn, googleSignIn } = useAuth();
+  const { signIn, googleSignIn, user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true }); // Redirect if user is logged in
+    }
+  }, [user, navigate]);
 
   const [formData, setFormData] = useState({
     email: '',

@@ -14,6 +14,7 @@ export const EmailVerification = () => {
     const { user, loading } = useAuth();
     const navigate = useNavigate();
 
+
     useEffect(() => {
         if (!loading && !user) {
             navigate('/login');
@@ -21,6 +22,10 @@ export const EmailVerification = () => {
 
         if (user?.emailVerified) {
             setIsVerified(true);
+        }
+
+        if (user && user.emailVerified) {
+            navigate("/", { replace: true });
         }
 
         // Polling function to check for verification
