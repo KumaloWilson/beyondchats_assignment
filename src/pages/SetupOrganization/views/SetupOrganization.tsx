@@ -39,14 +39,20 @@ export const SetupOrganization: React.FC = () => {
       }
     };
 
-    const result = insights[url] || {
+    type InsightResult = {
+      metaDescription: string;
+      industry: string;
+      keywords: string[];
+      primaryTopics: string[];
+    };
+
+    const result = (insights[url] || {
       metaDescription: 'Company description not available',
       industry: 'Unspecified',
       keywords: [],
       primaryTopics: []
-    };
+    }) as InsightResult;
 
-    // Update form data with fetched insights
     setFormData(prev => ({
       ...prev,
       metaDescription: result.metaDescription,
