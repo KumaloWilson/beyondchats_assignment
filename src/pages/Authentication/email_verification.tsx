@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Mail, CheckCircle, RefreshCw, ArrowRight } from 'lucide-react';
+import { RefreshCw, ArrowRight } from 'lucide-react';
 import { sendEmailVerification } from 'firebase/auth';
 import toast from 'react-hot-toast';
+import { Button } from '../../components/Button';
+import { useAuth } from '../../context/AuthContext';
+import { VerificationStatus } from './verification_status';
 
 export const EmailVerification = () => {
     const [verificationSent, setVerificationSent] = useState(false);
@@ -19,6 +22,20 @@ export const EmailVerification = () => {
         if (user?.emailVerified) {
             setIsVerified(true);
         }
+
+        // Polling function to check for verification
+        const interval = setInterval(async () => {
+            if (user && !user.emailVerified) {
+                await user.firebaseUser.reload(); // Reload user data from Firebase
+                if (user.firebaseUser.emailVerified) {
+                    setIsVerified(true);
+                    toast.success("Email verified! Redirecting...");
+                    setTimeout(() => navigate('/'), 2000); // Redirect after 2 seconds
+                }
+            }
+        }, 5000); // Check every 5 seconds
+
+        return () => clearInterval(interval); // Cleanup on unmount
     }, [user, loading, navigate]);
 
     const handleResendVerification = async () => {
@@ -63,7 +80,7 @@ export const EmailVerification = () => {
                             <Button
                                 onClick={handleResendVerification}
                                 disabled={verificationSent}
-                                className="w-full bg-violet-100 text-violet-700 hover:bg-violet-200 py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
+                                className="w-full bg-gray-50/50 border-gray-200 focus:border-violet-500 focus:ring-violet-500 py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
                                 icon={<RefreshCw className="w-5 h-5" />}
                             >
                                 Resend Verification Email

@@ -8,7 +8,7 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  const { user, signOut } = useAuth();
+  const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -55,9 +55,9 @@ export const Layout = ({ children }: LayoutProps) => {
                     onClick={() => setMenuOpen((prev) => !prev)}
                     className="focus:outline-none"
                   >
-                    {user.photoURL ? (
+                    {user.firebaseUser.photoURL ? (
                       <img
-                        src={user.photoURL}
+                        src={user.firebaseUser.photoURL}
                         alt="User Avatar"
                         className="w-10 h-10 rounded-full border-2 border-indigo-500 cursor-pointer"
                       />
@@ -86,7 +86,7 @@ export const Layout = ({ children }: LayoutProps) => {
                         Profile
                       </a>
                       <button
-                        onClick={signOut}
+                        onClick={logout}
                         className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition"
                       >
                         <LogOut className="inline-block w-5 h-5 mr-2" />
