@@ -123,7 +123,7 @@ export const WebpageChunksDrawer = ({ isOpen, onClose, webpage }) => {
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 30 }}
-                        className="fixed right-0 top-0 h-full w-full md:w-2/3 lg:w-1/2 bg-white shadow-xl overflow-y-auto z-50"
+                        className="fixed right-0 top-0 h-full w-full md:w-2/3 lg:w-2/3 bg-white shadow-xl overflow-y-auto z-50"
                     >
                         <div className="p-6">
                             <div className="flex justify-between items-center mb-6">
