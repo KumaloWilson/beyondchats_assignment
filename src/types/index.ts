@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { User as FirebaseUser } from "firebase/auth";
 
 export interface User {
@@ -29,23 +28,6 @@ export interface Organization {
   userId: string;
 }
 
-export interface WebPage {
-  id: string;
-  url: string;
-  status: 'pending' | 'scraped' | 'failed';
-  chunks: DataChunk[];
-}
-
-export interface DataChunk {
-  source: ReactNode;
-  confidence: number;
-  entityType: any;
-  keywords: any;
-  id: string;
-  content: string;
-  type: 'text' | 'heading' | 'list';
-}
-
 export interface WebPageChunk {
   id: string;
   content: string;
@@ -53,12 +35,14 @@ export interface WebPageChunk {
   source: string;
   keywords: string[];
   entityType?: 'product' | 'service' | 'about' | 'contact' | 'other';
+  type?: 'text' | 'heading' | 'list';
 }
 
 export interface WebPage {
+  id: string;
   url: string;
   status: 'pending' | 'scraped' | 'failed';
-  progress: number;
+  progress?: number;
   chunks?: WebPageChunk[];
   metaData?: {
     title?: string;
