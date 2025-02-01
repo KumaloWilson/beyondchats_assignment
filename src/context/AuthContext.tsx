@@ -8,7 +8,6 @@ import {
   onAuthStateChanged,
   updateProfile,
   sendEmailVerification,
-  User as FirebaseUser,
 } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { AuthContextType, User } from '../types';

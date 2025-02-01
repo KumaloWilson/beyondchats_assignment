@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import {
     Tag,
     FileText,
@@ -8,9 +7,17 @@ import {
     AlertCircle,
     X
 } from 'lucide-react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
-export const WebpageChunksDrawer = ({ isOpen, onClose, webpage }) => {
+interface WebpageChunksDrawerProps {
+    isOpen: boolean;
+    onClose: () => void;
+    webpage?: {
+        url?: string;
+    };
+}
+
+export const WebpageChunksDrawer = ({ isOpen, onClose, webpage }: WebpageChunksDrawerProps) => {
     const dummyChunks = [
         {
             id: '1',
@@ -90,8 +97,8 @@ export const WebpageChunksDrawer = ({ isOpen, onClose, webpage }) => {
         }
     ];
 
-    const getChunkIcon = (type) => {
-        const icons = {
+    const getChunkIcon = (type: string) => {
+        const icons: Record<string, typeof FileText> = {
             header: FileText,
             paragraph: FileText,
             list: Tag,
@@ -101,7 +108,7 @@ export const WebpageChunksDrawer = ({ isOpen, onClose, webpage }) => {
         return icons[type] || FileText;
     };
 
-    const getConfidenceColor = (confidence) => {
+    const getConfidenceColor = (confidence: number) => {
         if (confidence >= 0.9) return 'text-green-600';
         if (confidence >= 0.7) return 'text-yellow-600';
         return 'text-red-600';

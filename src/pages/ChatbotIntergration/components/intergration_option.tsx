@@ -3,7 +3,11 @@ import { MessageSquare, Code, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { OptionCard } from './option_card';
 
-export const IntegrationOptions = ({ onOptionSelect }) => (
+interface IntegrationOptionsProps {
+    onOptionSelect: (option: string) => void;
+}
+
+export const IntegrationOptions = ({ onOptionSelect }: IntegrationOptionsProps) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

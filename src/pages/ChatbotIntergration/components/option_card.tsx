@@ -1,6 +1,14 @@
 import { motion } from "framer-motion";
+import { ReactNode } from 'react';
 
-export const OptionCard = ({ icon, title, description, onClick }) => (
+interface OptionCardProps {
+    icon: ReactNode;
+    title: string;
+    description: string;
+    onClick: () => void;
+}
+
+export const OptionCard = ({ icon, title, description, onClick }: OptionCardProps) => (
     <motion.div
         whileHover={{ scale: 1.02 }}
         className="p-6 rounded-xl border border-gray-200 bg-white text-center space-y-4"

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { RefreshCcw } from 'lucide-react';
 import { IntegrationCode } from '../components/intergration_code';
@@ -7,6 +6,7 @@ import { IntegrationOptions } from '../components/intergration_option';
 import { IntegrationSuccess } from '../components/intergration_success';
 import { TestWebsite } from '../components/test_site';
 import { Layout } from '../../../components/Layout';
+import { useState } from 'react';
 
 export const INTEGRATION_STATES = {
   NOT_STARTED: 'not_started',

@@ -27,7 +27,7 @@ export const SetupOrganization: React.FC = () => {
 
   // Fetch website insights
   const fetchWebsiteInsights = async (url: string) => {
-    const insights: { [key: string]: any } = {
+    const insights: { [key: string]: unknown } = {
       'https://example.com': {
         metaDescription: 'Leading technology solutions for modern businesses',
         industry: 'Technology',

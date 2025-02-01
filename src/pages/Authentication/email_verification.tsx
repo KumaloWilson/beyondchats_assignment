@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { RefreshCw, ArrowRight } from 'lucide-react';
@@ -7,6 +6,7 @@ import toast from 'react-hot-toast';
 import { Button } from '../../components/Button';
 import { useAuth } from '../../context/AuthContext';
 import { VerificationStatus } from './verification_status';
+import { useState, useEffect } from 'react';
 
 export const EmailVerification = () => {
     const [verificationSent, setVerificationSent] = useState(false);

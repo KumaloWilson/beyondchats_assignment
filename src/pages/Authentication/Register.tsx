@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { SiGoogle } from 'react-icons/si';
 
 export const Register = () => {
-  const [step, setStep] = useState(1);
+  const [step,] = useState(1);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { signUp, googleSignIn } = useAuth();

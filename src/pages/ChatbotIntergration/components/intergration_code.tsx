@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Code } from "lucide-react";
 import toast from "react-hot-toast";
 
-export const IntegrationCode = ({ onBack }) => {
+export const IntegrationCode = ({ onBack }: { onBack: () => void }) => {
     const copyCode = () => {
         const code = `<script src="https://cdn.beyondchats.com/widget.js"></script>
 <script>

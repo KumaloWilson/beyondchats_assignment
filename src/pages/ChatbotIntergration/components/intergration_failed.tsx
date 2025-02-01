@@ -1,6 +1,6 @@
 import { AlertTriangle } from "lucide-react";
 
-export const IntegrationFailed = ({ onRetry, onReviewCode }) => (
+export const IntegrationFailed = ({ onRetry, onReviewCode }: { onRetry: () => void, onReviewCode: () => void }) => (
     <div className="text-center space-y-6">
         <AlertTriangle className="w-12 h-12 text-red-600 mx-auto" />
         <h3 className="text-xl font-bold text-red-600">Integration Not Detected</h3>
