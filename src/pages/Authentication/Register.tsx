@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '../../components/Input';
@@ -23,7 +23,7 @@ export const Register = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/", { replace: true }); // Redirect if user is logged in
+      navigate("/", { replace: true });
     }
   }, [user, navigate]);
 
@@ -242,7 +242,3 @@ export const Register = () => {
 };
 
 export default Register;
-
-function useEffect(arg0: () => void, arg1: any[]) {
-  throw new Error('Function not implemented.');
-}
