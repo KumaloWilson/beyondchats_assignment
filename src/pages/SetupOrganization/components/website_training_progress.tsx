@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../../../components/Button';
 import { WebPage, WebsiteAnalysis } from '../../../types';
-
+import { WebpageChunksDrawer } from './side_drawer';
 
 interface WebsiteTrainingProgressProps {
     webPages: WebPage[];
@@ -31,6 +31,18 @@ export const WebsiteTrainingProgress: React.FC<WebsiteTrainingProgressProps> = (
     onPageSelect
 }) => {
     const [selectedPage, setSelectedPage] = useState<WebPage | null>(null);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    const handlePageClick = (page: WebPage) => {
+        setSelectedPage(page);
+        setIsDrawerOpen(true);
+        onPageSelect(page);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedPage(null);
+    };
 
     const renderTrainingStatus = () => {
         switch (trainingStatus) {
@@ -127,31 +139,6 @@ export const WebsiteTrainingProgress: React.FC<WebsiteTrainingProgressProps> = (
         );
     };
 
-    const renderPageChunks = () => {
-        if (!selectedPage || !selectedPage.chunks) {
-            return (
-                <div className="text-center text-gray-500 py-4">
-                    No content chunks available for this page.
-                </div>
-            );
-        }
-
-        return (
-            <div className="space-y-3">
-                {selectedPage.chunks.map((chunk) => (
-                    <motion.div
-                        key={chunk.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="bg-gray-100 p-3 rounded-lg border border-gray-200"
-                    >
-                        {/* Chunk rendering logic remains the same as in original component */}
-                    </motion.div>
-                ))}
-            </div>
-        );
-    };
-
     return (
         <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -173,16 +160,13 @@ export const WebsiteTrainingProgress: React.FC<WebsiteTrainingProgressProps> = (
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.1 }}
-                            className={`p-4 rounded-lg border cursor-pointer ${page.status === 'scraped'
-                                ? 'border-green-200 bg-green-50'
-                                : page.status === 'pending'
-                                    ? 'border-yellow-200 bg-yellow-50'
-                                    : 'border-red-200 bg-red-50'
+                            className={`p-4 rounded-lg border cursor-pointer hover:shadow-md transition-shadow ${page.status === 'scraped'
+                                    ? 'border-green-200 bg-green-50'
+                                    : page.status === 'pending'
+                                        ? 'border-yellow-200 bg-yellow-50'
+                                        : 'border-red-200 bg-red-50'
                                 }`}
-                            onClick={() => {
-                                setSelectedPage(page);
-                                onPageSelect(page);
-                            }}
+                            onClick={() => handlePageClick(page)}
                         >
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center space-x-3">
@@ -210,7 +194,6 @@ export const WebsiteTrainingProgress: React.FC<WebsiteTrainingProgressProps> = (
                                     <p><strong>Description:</strong> {page.metaData.description}</p>
                                 </div>
                             )}
-
                         </motion.div>
                     ))}
                 </div>
@@ -218,18 +201,13 @@ export const WebsiteTrainingProgress: React.FC<WebsiteTrainingProgressProps> = (
 
             {websiteAnalysis && renderWebsiteAnalysis()}
 
-            {selectedPage && (
-                <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    className="mt-6 bg-gray-50 rounded-lg p-4 border border-gray-200"
-                >
-                    <h4 className="text-lg font-semibold mb-4 text-gray-900">
-                        Scraped Content: {selectedPage.url}
-                    </h4>
-                    {renderPageChunks()}
-                </motion.div>
-            )}
+            <WebpageChunksDrawer
+                isOpen={isDrawerOpen}
+                onClose={handleCloseDrawer}
+                webpage={selectedPage}
+            />
         </motion.div>
     );
 };
+
+export default WebsiteTrainingProgress;
