@@ -1,8 +1,7 @@
-// IntegrationOptions.jsx
-import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, Code, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { OptionCard } from './option_card';
 
 export const IntegrationOptions = ({ onOptionSelect }) => (
     <motion.div

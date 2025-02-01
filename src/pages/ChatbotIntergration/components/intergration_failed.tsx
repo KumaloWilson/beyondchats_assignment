@@ -1,3 +1,5 @@
+import { AlertTriangle } from "lucide-react";
+
 export const IntegrationFailed = ({ onRetry, onReviewCode }) => (
     <div className="text-center space-y-6">
         <AlertTriangle className="w-12 h-12 text-red-600 mx-auto" />

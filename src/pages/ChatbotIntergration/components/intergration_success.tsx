@@ -1,3 +1,13 @@
+import { motion } from "framer-motion";
+import { CheckCircle, ExternalLink, MessageSquare } from "lucide-react";
+import toast from "react-hot-toast";
+import Confetti from 'react-confetti';
+
+const SOCIAL_PLATFORMS = [
+    { name: 'Twitter', color: 'text-blue-400' },
+    { name: 'Facebook', color: 'text-blue-600' },
+    { name: 'LinkedIn', color: 'text-blue-700' }
+];
 
 export const IntegrationSuccess = () => (
     <motion.div

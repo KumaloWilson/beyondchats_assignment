@@ -1,5 +1,6 @@
+import { motion } from "framer-motion";
 
-const OptionCard = ({ icon, title, description, onClick }) => (
+export const OptionCard = ({ icon, title, description, onClick }) => (
     <motion.div
         whileHover={{ scale: 1.02 }}
         className="p-6 rounded-xl border border-gray-200 bg-white text-center space-y-4"

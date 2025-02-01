@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import {
-  IntegrationOptions,
-  TestWebsite,
-  IntegrationCode,
-  IntegrationSuccess,
-  IntegrationFailed
-} from './components';
+import { RefreshCcw } from 'lucide-react';
+import { IntegrationCode } from '../components/intergration_code';
+import { IntegrationFailed } from '../components/intergration_failed';
+import { IntegrationOptions } from '../components/intergration_option';
+import { IntegrationSuccess } from '../components/intergration_success';
+import { TestWebsite } from '../components/test_site';
 
-const INTEGRATION_STATES = {
+export const INTEGRATION_STATES = {
   NOT_STARTED: 'not_started',
   DETECTING: 'detecting',
   SUCCESS: 'success',
