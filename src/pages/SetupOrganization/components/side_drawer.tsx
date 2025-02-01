@@ -8,13 +8,12 @@ import {
     X
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { WebPage } from '../../../types/index';
 
 interface WebpageChunksDrawerProps {
     isOpen: boolean;
     onClose: () => void;
-    webpage?: {
-        url?: string;
-    };
+    webpage: WebPage;
 }
 
 export const WebpageChunksDrawer = ({ isOpen, onClose, webpage }: WebpageChunksDrawerProps) => {
@@ -98,14 +97,14 @@ export const WebpageChunksDrawer = ({ isOpen, onClose, webpage }: WebpageChunksD
     ];
 
     const getChunkIcon = (type: string) => {
-        const icons: Record<string, typeof FileText> = {
+        const icons: Record<'header' | 'paragraph' | 'list' | 'testimonial' | 'statistic', typeof FileText> = {
             header: FileText,
             paragraph: FileText,
             list: Tag,
             testimonial: Link,
             statistic: BarChart2
         };
-        return icons[type] || FileText;
+        return icons[type as keyof typeof icons] || FileText;
     };
 
     const getConfidenceColor = (confidence: number) => {

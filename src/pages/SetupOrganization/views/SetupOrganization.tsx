@@ -25,6 +25,8 @@ export const SetupOrganization: React.FC = () => {
     keywords: [],
   });
 
+  console.log('Selected Page', selectedPage);
+  console.log('loading', loading);
 
   // Fetch website insights
   const fetchWebsiteInsights = async (url: string) => {

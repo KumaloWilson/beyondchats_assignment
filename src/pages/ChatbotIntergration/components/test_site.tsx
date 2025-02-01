@@ -1,4 +1,4 @@
-export const TestWebsite = ({ onBack, onContinue }) => (
+export const TestWebsite = ({ onBack, onContinue }: { onBack: () => void; onContinue: () => void }) => (
     <div className="space-y-4">
         <div className="relative h-[600px] bg-gray-100 rounded-lg overflow-hidden">
             <div className="absolute top-0 left-0 w-full bg-white shadow-sm p-4 flex justify-between items-center">

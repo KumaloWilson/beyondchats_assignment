@@ -161,10 +161,10 @@ export const WebsiteTrainingProgress: React.FC<WebsiteTrainingProgressProps> = (
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.1 }}
                             className={`p-4 rounded-lg border cursor-pointer hover:shadow-md transition-shadow ${page.status === 'scraped'
-                                    ? 'border-green-200 bg-green-50'
-                                    : page.status === 'pending'
-                                        ? 'border-yellow-200 bg-yellow-50'
-                                        : 'border-red-200 bg-red-50'
+                                ? 'border-green-200 bg-green-50'
+                                : page.status === 'pending'
+                                    ? 'border-yellow-200 bg-yellow-50'
+                                    : 'border-red-200 bg-red-50'
                                 }`}
                             onClick={() => handlePageClick(page)}
                         >
@@ -201,11 +201,13 @@ export const WebsiteTrainingProgress: React.FC<WebsiteTrainingProgressProps> = (
 
             {websiteAnalysis && renderWebsiteAnalysis()}
 
-            <WebpageChunksDrawer
-                isOpen={isDrawerOpen}
-                onClose={handleCloseDrawer}
-                webpage={selectedPage}
-            />
+            {selectedPage && (
+                <WebpageChunksDrawer
+                    isOpen={isDrawerOpen}
+                    onClose={handleCloseDrawer}
+                    webpage={selectedPage}
+                />
+            )}
         </motion.div>
     );
 };
