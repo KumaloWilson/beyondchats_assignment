@@ -25,6 +25,7 @@ export const SetupOrganization: React.FC = () => {
     keywords: [],
   });
 
+
   // Fetch website insights
   const fetchWebsiteInsights = async (url: string) => {
     const insights: { [key: string]: unknown } = {
