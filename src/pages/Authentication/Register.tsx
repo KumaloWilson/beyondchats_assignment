@@ -28,11 +28,7 @@ export const Register = () => {
     try {
       if (step === 1) {
         await signUp(formData.email, formData.password, formData.name);
-        setStep(2);
-        toast.success('Verification code sent to your email!');
-      } else if (step === 2) {
-        // Verify code logic here
-        navigate('/setup-organization');
+        navigate('/email/verification');
       }
     } catch (error) {
       toast.error('Something went wrong. Please try again.');

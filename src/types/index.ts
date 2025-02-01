@@ -1,10 +1,24 @@
 import { ReactNode } from "react";
+import { User as FirebaseUser } from "firebase/auth";
 
 export interface User {
   id: string;
   name: string;
   email: string;
   emailVerified: boolean;
+  firebaseUser: FirebaseUser;
+}
+
+
+
+export interface AuthContextType {
+  user: User | null;
+  loading: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string) => Promise<void>;
+  logout: () => Promise<void>;
+  googleSignIn: () => Promise<void>;
+  checkEmailVerification: () => Promise<boolean>;
 }
 
 export interface Organization {
@@ -31,16 +45,6 @@ export interface DataChunk {
   content: string;
   type: 'text' | 'heading' | 'list';
 }
-
-export interface AuthContextType {
-  user: User | null;
-  loading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, name: string) => Promise<void>;
-  signOut: () => Promise<void>;
-  googleSignIn: () => Promise<void>;
-}
-
 
 export interface WebPageChunk {
   id: string;

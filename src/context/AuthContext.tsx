@@ -7,9 +7,12 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
+  sendEmailVerification,
+  User as FirebaseUser,
 } from 'firebase/auth';
 import { auth } from '../lib/firebase';
-import type { AuthContextType, User } from '../types';
+import { AuthContextType, User } from '../types';
+
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -25,6 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           name: firebaseUser.displayName || '',
           email: firebaseUser.email || '',
           emailVerified: firebaseUser.emailVerified,
+          firebaseUser: firebaseUser
         });
       } else {
         setUser(null);
@@ -34,6 +38,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     return () => unsubscribe();
   }, []);
+
+  const checkEmailVerification = async () => {
+    if (user?.firebaseUser) {
+      await user.firebaseUser.reload();
+      const updatedUser = auth.currentUser;
+      if (updatedUser) {
+        setUser(prev => prev ? {
+          ...prev,
+          emailVerified: updatedUser.emailVerified
+        } : null);
+        return updatedUser.emailVerified;
+      }
+    }
+    return false;
+  };
 
   const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -45,8 +64,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signUp = async (email: string, password: string, name: string) => {
-    const { user } = await createUserWithEmailAndPassword(auth, email, password);
-    await updateProfile(user, { displayName: name });
+    const { user: firebaseUser } = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(firebaseUser, { displayName: name });
+    await sendEmailVerification(firebaseUser);
   };
 
   const logout = async () => {
@@ -55,7 +75,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, logout, googleSignIn }}>
+    <AuthContext.Provider value={{
+      user,
+      loading,
+      signIn,
+      signUp,
+      logout,
+      googleSignIn,
+      checkEmailVerification
+    }}>
       {!loading && children}
     </AuthContext.Provider>
   );

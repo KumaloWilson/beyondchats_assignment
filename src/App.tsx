@@ -6,6 +6,7 @@ import { ChatbotIntegration } from './pages/ChatbotIntergration/views/ChatbotInt
 import { Login } from './pages/Authentication/Login';
 import ProtectedRoute from './lib/protected_routes';
 import SetupOrganization from './pages/SetupOrganization/views/SetupOrganization';
+import EmailVerification from './pages/Authentication/email_verification';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<SetupOrganization />} />
+            <Route path="/email/verification" element={<EmailVerification />} />
             <Route path="/setup-organization" element={<SetupOrganization />} />
             <Route path="/chatbot-integration" element={<ChatbotIntegration />} />
           </Route>
