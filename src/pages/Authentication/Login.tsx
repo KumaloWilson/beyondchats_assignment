@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Input } from '../components/Input';
-import { Button } from '../components/Button';
-import { useAuth } from '../context/AuthContext';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+import { useAuth } from '../../context/AuthContext';
 import { Mail, Lock, Sparkles, } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';

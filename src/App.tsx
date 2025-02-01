@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
-import { Register } from './pages/Register';
+import { Register } from './pages/Authentication/Register';
 import { ChatbotIntegration } from './pages/ChatbotIntergration/views/ChatbotIntegration';
-import { Login } from './pages/Login';
+import { Login } from './pages/Authentication/Login';
 import ProtectedRoute from './lib/protected_routes';
 import SetupOrganization from './pages/SetupOrganization/views/SetupOrganization';
 
