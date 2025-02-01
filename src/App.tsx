@@ -18,7 +18,6 @@ function App() {
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
-
             <Route path="/" element={<SetupOrganization />} />
             <Route path="/setup-organization" element={<SetupOrganization />} />
             <Route path="/chatbot-integration" element={<ChatbotIntegration />} />

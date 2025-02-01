@@ -1,86 +1,231 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { X, FileText } from 'lucide-react';
-import { WebPage } from '../../../types';
+import { X, FileText, Link, Tag, BarChart2, Clock, AlertCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-interface SideDrawerProps {
-    isOpen: boolean;
-    onClose: () => void;
-    selectedPage: WebPage | null;
-}
+const WebpageChunksDrawer = ({ isOpen, onClose, webpage }) => {
+    const dummyChunks = [
+        {
+            id: '1',
+            type: 'header',
+            content: 'Transform Your Business with AI-Powered Solutions',
+            confidence: 0.98,
+            source: 'h1.hero-title',
+            keywords: ['AI', 'business transformation', 'solutions'],
+            entityType: 'value_proposition',
+            metadata: {
+                position: 'hero section',
+                importance: 'high',
+                lastUpdated: '2024-01-15'
+            }
+        },
+        {
+            id: '2',
+            type: 'paragraph',
+            content: 'Our cutting-edge artificial intelligence solutions help businesses streamline operations, reduce costs, and drive innovation. With over 10 years of experience serving Fortune 500 companies, we deliver measurable results through custom AI implementations.',
+            confidence: 0.95,
+            source: 'div.hero-description',
+            keywords: ['AI solutions', 'business operations', 'innovation', 'experience'],
+            entityType: 'company_description',
+            metadata: {
+                readingTime: '30 seconds',
+                wordCount: 42
+            }
+        },
+        {
+            id: '3',
+            type: 'list',
+            content: [
+                'Predictive Analytics',
+                'Machine Learning Models',
+                'Natural Language Processing',
+                'Computer Vision Solutions'
+            ],
+            confidence: 0.92,
+            source: 'ul.services-list',
+            keywords: ['analytics', 'machine learning', 'NLP', 'computer vision'],
+            entityType: 'services',
+            metadata: {
+                listType: 'services',
+                itemCount: 4
+            }
+        },
+        {
+            id: '4',
+            type: 'testimonial',
+            content: '"Implementation of their AI solution resulted in a 45% reduction in processing time and 30% cost savings for our organization." - Sarah Chen, CTO of TechCorp',
+            confidence: 0.89,
+            source: 'blockquote.testimonial',
+            keywords: ['testimonial', 'results', 'cost savings', 'efficiency'],
+            entityType: 'social_proof',
+            metadata: {
+                author: 'Sarah Chen',
+                company: 'TechCorp',
+                position: 'CTO'
+            }
+        },
+        {
+            id: '5',
+            type: 'statistic',
+            content: {
+                value: '95%',
+                label: 'Client Satisfaction Rate',
+                description: 'Based on post-implementation surveys'
+            },
+            confidence: 0.97,
+            source: 'div.stats-container',
+            keywords: ['satisfaction', 'client success', 'results'],
+            entityType: 'metric',
+            metadata: {
+                dataSource: 'Client Surveys',
+                sampleSize: 500
+            }
+        }
+    ];
 
-export const SideDrawer: React.FC<SideDrawerProps> = ({
-    isOpen,
-    onClose,
-    selectedPage
-}) => {
-    if (!isOpen || !selectedPage) return null;
+    const getChunkIcon = (type) => {
+        const icons = {
+            header: FileText,
+            paragraph: FileText,
+            list: Tag,
+            testimonial: Link,
+            statistic: BarChart2
+        };
+        return icons[type] || FileText;
+    };
+
+    const getConfidenceColor = (confidence) => {
+        if (confidence >= 0.9) return 'text-green-600';
+        if (confidence >= 0.7) return 'text-yellow-600';
+        return 'text-red-600';
+    };
 
     return (
-        <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'tween' }}
-            className="fixed top-0 right-0 w-96 h-full bg-white shadow-xl z-50 p-6 overflow-y-auto"
-        >
-            <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 flex items-center">
-                    <FileText className="mr-3 text-indigo-600" />
-                    Scraped Content
-                </h3>
-                <button
-                    onClick={onClose}
-                    className="text-gray-500 hover:text-gray-700"
-                >
-                    <X className="w-6 h-6" />
-                </button>
-            </div>
-
-            <div className="space-y-4">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">Page Details</h4>
-                    <div className="space-y-2">
-                        <p><strong>URL:</strong> {selectedPage.url}</p>
-                        <p><strong>Title:</strong> {selectedPage.metaData?.title || 'No title'}</p>
-                        <p><strong>Description:</strong> {selectedPage.metaData?.description || 'No description'}</p>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 className="text-lg font-medium mb-2 text-gray-800">Content Chunks</h4>
-                    {selectedPage.chunks && selectedPage.chunks.length > 0 ? (
-                        selectedPage.chunks.map((chunk) => (
-                            <motion.div
-                                key={chunk.id}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="bg-white border border-gray-200 rounded-lg p-3 mb-3"
-                            >
-                                <p className="text-sm text-gray-700 mb-2">{chunk.content}</p>
-                                <div className="flex justify-between text-xs text-gray-500">
-                                    <span>Source: {chunk.source}</span>
-                                    <span>Confidence: {(chunk.confidence * 100).toFixed(2)}%</span>
+        <AnimatePresence>
+            {isOpen && (
+                <>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.5 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black"
+                        onClick={onClose}
+                    />
+                    <motion.div
+                        initial={{ x: '100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '100%' }}
+                        transition={{ type: 'spring', damping: 30 }}
+                        className="fixed right-0 top-0 h-full w-full md:w-2/3 lg:w-1/2 bg-white shadow-xl overflow-y-auto"
+                    >
+                        <div className="p-6">
+                            <div className="flex justify-between items-center mb-6">
+                                <div>
+                                    <h2 className="text-2xl font-bold text-gray-900">Page Content Analysis</h2>
+                                    <p className="text-sm text-gray-600">{webpage?.url || 'Page URL'}</p>
                                 </div>
-                                {chunk.keywords && (
-                                    <div className="flex flex-wrap gap-1 mt-2">
-                                        {chunk.keywords.map(keyword => (
-                                            <span
-                                                key={keyword}
-                                                className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs"
-                                            >
-                                                {keyword}
-                                            </span>
-                                        ))}
-                                    </div>
-                                )}
-                            </motion.div>
-                        ))
-                    ) : (
-                        <p className="text-gray-500 text-center py-4">No content chunks available</p>
-                    )}
-                </div>
-            </div>
-        </motion.div>
+                                <button
+                                    onClick={onClose}
+                                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                >
+                                    <X className="w-6 h-6 text-gray-600" />
+                                </button>
+                            </div>
+
+                            <div className="space-y-6">
+                                {dummyChunks.map((chunk) => {
+                                    const ChunkIcon = getChunkIcon(chunk.type);
+                                    return (
+                                        <motion.div
+                                            key={chunk.id}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm"
+                                        >
+                                            <div className="flex items-start gap-4">
+                                                <div className="p-2 bg-indigo-50 rounded-lg">
+                                                    <ChunkIcon className="w-5 h-5 text-indigo-600" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <span className="text-sm font-medium text-gray-900 capitalize">
+                                                            {chunk.type}
+                                                        </span>
+                                                        <div className="flex items-center gap-2">
+                                                            <Clock className="w-4 h-4 text-gray-400" />
+                                                            <span className="text-xs text-gray-500">
+                                                                {chunk.metadata?.lastUpdated || 'N/A'}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="mb-3">
+                                                        {typeof chunk.content === 'string' ? (
+                                                            <p className="text-gray-700">{chunk.content}</p>
+                                                        ) : Array.isArray(chunk.content) ? (
+                                                            <ul className="list-disc list-inside text-gray-700">
+                                                                {chunk.content.map((item, i) => (
+                                                                    <li key={i}>{item}</li>
+                                                                ))}
+                                                            </ul>
+                                                        ) : (
+                                                            <div className="text-gray-700">
+                                                                <div className="text-2xl font-bold">{chunk.content.value}</div>
+                                                                <div className="text-sm">{chunk.content.label}</div>
+                                                                <div className="text-xs text-gray-500">{chunk.content.description}</div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="grid grid-cols-2 gap-4 text-sm">
+                                                        <div>
+                                                            <div className="text-gray-500 mb-1">Keywords</div>
+                                                            <div className="flex flex-wrap gap-1">
+                                                                {chunk.keywords.map((keyword, i) => (
+                                                                    <span
+                                                                        key={i}
+                                                                        className="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-600"
+                                                                    >
+                                                                        {keyword}
+                                                                    </span>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div className="text-gray-500 mb-1">Metadata</div>
+                                                            <div className="space-y-1">
+                                                                {Object.entries(chunk.metadata).map(([key, value]) => (
+                                                                    <div key={key} className="text-xs text-gray-600">
+                                                                        <span className="font-medium">{key.replace(/_/g, ' ')}</span>: {value}
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="mt-4 flex items-center justify-between pt-3 border-t border-gray-100">
+                                                        <div className="flex items-center gap-2">
+                                                            <AlertCircle className="w-4 h-4 text-gray-400" />
+                                                            <span className="text-xs text-gray-500">Source: {chunk.source}</span>
+                                                        </div>
+                                                        <div className={`flex items-center gap-1 ${getConfidenceColor(chunk.confidence)}`}>
+                                                            <BarChart2 className="w-4 h-4" />
+                                                            <span className="text-xs font-medium">
+                                                                {(chunk.confidence * 100).toFixed(1)}% confidence
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </motion.div>
+                </>
+            )}
+        </AnimatePresence>
     );
 };
+
+export default WebpageChunksDrawer;
