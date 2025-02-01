@@ -6,6 +6,7 @@ import { IntegrationFailed } from '../components/intergration_failed';
 import { IntegrationOptions } from '../components/intergration_option';
 import { IntegrationSuccess } from '../components/intergration_success';
 import { TestWebsite } from '../components/test_site';
+import { Layout } from '../../../components/Layout';
 
 export const INTEGRATION_STATES = {
   NOT_STARTED: 'not_started',
@@ -68,35 +69,38 @@ export const ChatbotIntegration = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-8">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text">
-            Chatbot Integration
-          </h2>
-          <p className="text-gray-600 mt-2">
-            {integrationStep === 'options' && 'Choose how you want to integrate your chatbot'}
-            {integrationStep === 'integration-code' && 'Copy the integration code'}
-            {integrationStep === 'test-website' && 'Preview chatbot on a sample website'}
-          </p>
-        </div>
+    <Layout>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text">
+              Chatbot Integration
+            </h2>
+            <p className="text-gray-600 mt-2">
+              {integrationStep === 'options' && 'Choose how you want to integrate your chatbot'}
+              {integrationStep === 'integration-code' && 'Copy the integration code'}
+              {integrationStep === 'test-website' && 'Preview chatbot on a sample website'}
+            </p>
+          </div>
 
-        <AnimatePresence mode="wait">
-          {integrationStep === 'options' && (
-            <IntegrationOptions onOptionSelect={setIntegrationStep} />
-          )}
-          {integrationStep === 'integration-code' && (
-            <IntegrationCode onBack={() => setIntegrationStep('options')} />
-          )}
-          {integrationStep === 'test-website' && (
-            <TestWebsite
-              onBack={() => setIntegrationStep('options')}
-              onContinue={() => setIntegrationStep('integration-detection')}
-            />
-          )}
-          {integrationStep === 'integration-detection' && renderIntegrationDetection()}
-        </AnimatePresence>
+          <AnimatePresence mode="wait">
+            {integrationStep === 'options' && (
+              <IntegrationOptions onOptionSelect={setIntegrationStep} />
+            )}
+            {integrationStep === 'integration-code' && (
+              <IntegrationCode onBack={() => setIntegrationStep('options')} />
+            )}
+            {integrationStep === 'test-website' && (
+              <TestWebsite
+                onBack={() => setIntegrationStep('options')}
+                onContinue={() => setIntegrationStep('integration-detection')}
+              />
+            )}
+            {integrationStep === 'integration-detection' && renderIntegrationDetection()}
+          </AnimatePresence>
+        </div>
       </div>
-    </div>
+
+    </Layout>
   );
 };
