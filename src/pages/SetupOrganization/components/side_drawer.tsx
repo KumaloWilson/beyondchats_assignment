@@ -1,8 +1,16 @@
-import React from 'react';
-import { X, FileText, Link, Tag, BarChart2, Clock, AlertCircle } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import {
+    Tag,
+    FileText,
+    Link,
+    BarChart2,
+    Clock,
+    AlertCircle,
+    X
+} from 'lucide-react';
+import { AnimatePresence } from 'framer-motion';
 
-const WebpageChunksDrawer = ({ isOpen, onClose, webpage }) => {
+export const WebpageChunksDrawer = ({ isOpen, onClose, webpage }) => {
     const dummyChunks = [
         {
             id: '1',
@@ -115,7 +123,7 @@ const WebpageChunksDrawer = ({ isOpen, onClose, webpage }) => {
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 30 }}
-                        className="fixed right-0 top-0 h-full w-full md:w-2/3 lg:w-1/2 bg-white shadow-xl overflow-y-auto"
+                        className="fixed right-0 top-0 h-full w-full md:w-2/3 lg:w-1/2 bg-white shadow-xl overflow-y-auto z-50"
                     >
                         <div className="p-6">
                             <div className="flex justify-between items-center mb-6">
@@ -227,5 +235,3 @@ const WebpageChunksDrawer = ({ isOpen, onClose, webpage }) => {
         </AnimatePresence>
     );
 };
-
-export default WebpageChunksDrawer;
