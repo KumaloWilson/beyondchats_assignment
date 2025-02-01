@@ -11,16 +11,16 @@ export const Layout = ({ children }: LayoutProps) => {
   const { user, logout } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col">
       {/* Navbar */}
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ type: "spring", stiffness: 100 }}
-        className="border-b bg-white/80 backdrop-blur-lg sticky top-0 z-50"
+        transition={{ type: 'spring', stiffness: 100 }}
+        className="border-b bg-white/80 backdrop-blur-lg sticky top-0 z-50 w-full"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
+          <div className="flex justify-between items-center h-16 w-full">
             {/* Logo */}
             <motion.div
               className="flex items-center"
@@ -46,16 +46,16 @@ export const Layout = ({ children }: LayoutProps) => {
                   ) : (
                     <User className="w-10 h-10 text-gray-600 border-2 border-gray-400 rounded-full p-1" />
                   )}
-                  <div className="text-gray-900">
-                    <p className="font-semibold">{user.name || "User"}</p>
+                  <div className="hidden sm:block text-gray-900">
+                    <p className="font-semibold">{user.name || 'User'}</p>
                     <p className="text-sm text-gray-500">{user.email}</p>
                   </div>
                   <button
                     onClick={logout}
                     className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition flex items-center"
                   >
-                    <LogOut className="w-5 h-5 mr-1" />
-                    Logout
+                    <LogOut className="w-5 h-5 sm:mr-1" />
+                    <span className="hidden sm:inline">Logout</span>
                   </button>
                 </div>
               ) : (
@@ -72,7 +72,7 @@ export const Layout = ({ children }: LayoutProps) => {
       </motion.nav>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
